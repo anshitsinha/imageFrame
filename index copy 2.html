@@ -28,6 +28,79 @@
       max-height: 300px;
       margin-top: 20px;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    .main {
+      background-color: #fff;
+      padding: 40px;
+      width: 400px;
+      border-radius: 20px;
+    }
+
+    .main .planet {
+      width: 200px;
+    }
+
+    .main .rocket {
+      width: 50px;
+      filter: drop-shadow(0px 2px 5px #333);
+    }
+    .main {
+        background-color: #ffffff;
+        padding: 40px;
+        width: 400px;
+        border-radius: 20px;
+      }
+      
+      .main .planet {
+        width: 200px;
+      }
+      
+      .main .rocket {
+        width: 50px;
+        filter: drop-shadow(0px 2px 5px #333);
+      }
+
+      .main {
+        background-color: #ffffff;
+        padding: 40px;
+        width: 400px;
+        border-radius: 20px;
+      
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr;
+        place-items: center;
+      }
+      .main .planet {
+        width: 200px;
+      
+        grid-area: 1 / 1;
+      }
+      
+      .main #mergedCanvas {
+        width: 200px;
+        filter: drop-shadow(0px 2px 5px #333);
+        mix-blend-mode: screen;
+        mix-blend-mode: screen;
+      
+        grid-area: 1 / 1
+      }
+
+      
+
   </style>
 </head>
 <body>
@@ -36,13 +109,27 @@
     Add Image / Icon
    </div>
    
+
+
+
+
+
+
+
+
 <div class="upload">
   Upload Image
   <input type="file" id="imageInput" accept="image/*">
   
 
 </div>
-<img id="selectedImage" alt="Selected Image">
+
+<div class="main">
+  <img class="planet" id="selectedImage">
+  <canvas id="mergedCanvas"></canvas>
+  </div>
+</div>
+
   
   <script>
     // Function to handle file input
@@ -71,6 +158,39 @@
 
     // Add an event listener to the file input
     document.getElementById('imageInput').addEventListener('change', handleImage);
+
+
+
+
+
+     // Function to merge two images
+     function mergeImages() {
+        const canvas = document.getElementById('mergedCanvas');
+        const context = canvas.getContext('2d');
+  
+        // Load images
+        const image1 = new Image();
+        image1.src = './b.png'; // Replace with the path to your first image
+  
+        const image2 = new Image();
+        image2.src = './a.png'; // Replace with the path to your second image
+  
+        // Wait for images to load
+        image1.onload = () => {
+          image2.onload = () => {
+            // Set canvas size to the maximum of both images
+            canvas.width = Math.max(image1.width, image2.width);
+            canvas.height = Math.max(image1.height, image2.height);
+  
+            // Draw images onto the canvas
+            context.drawImage(image1, 0, 0, image1.width, image1.height);
+            context.drawImage(image2, 0, 0, image2.width, image2.height);
+          };
+        };
+      }
+  
+      // Call the mergeImages function after the page has loaded
+      window.onload = mergeImages;
   </script>
 </body>
 </html>
